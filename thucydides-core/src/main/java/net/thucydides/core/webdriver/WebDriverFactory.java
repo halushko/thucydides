@@ -33,6 +33,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.yandex.qatools.htmlelements.loader.HtmlElementLoader;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -564,9 +565,7 @@ public class WebDriverFactory {
      * Initialize a page object's fields using the specified WebDriver instance.
      */
     public static void initElementsWithAjaxSupport(final PageObject pageObject, final WebDriver driver) {
-        ElementLocatorFactory finder = getElementLocatorFactorySelector().getLocatorFor(driver);
-        PageFactory.initElements(finder, pageObject);
-        initWebElementFacades(new WebElementFacadeFieldDecorator(finder), pageObject, driver);
+        HtmlElementLoader.populatePageObject(pageObject, driver);
     }
 
     private static ElementLocatorFactorySelector getElementLocatorFactorySelector() {
@@ -575,10 +574,7 @@ public class WebDriverFactory {
     }
 
     public static void initElementsWithAjaxSupport(final PageObject pageObject, final WebDriver driver, int timeoutInSeconds) {
-        ElementLocatorFactory finder = getElementLocatorFactorySelector().withTimeout(timeoutInSeconds).getLocatorFor(driver);
-        PageFactory.initElements(finder, pageObject);
-        initWebElementFacades(new WebElementFacadeFieldDecorator(finder), pageObject, driver);
-
+        HtmlElementLoader.populatePageObject(pageObject, driver);
     }
 
     private static void initWebElementFacades(WebElementFacadeFieldDecorator decorator, PageObject page, final WebDriver driver) {

@@ -50,6 +50,17 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>ru.yandex.qatools.htmlelements</groupId>
+            <artifactId>htmlelements-all</artifactId>
+            <version>1.9</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.seleniumhq.selenium</groupId>
+                    <artifactId>selenium-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>2.2.2</version>
